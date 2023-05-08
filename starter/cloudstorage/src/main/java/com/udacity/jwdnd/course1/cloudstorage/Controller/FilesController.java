@@ -39,6 +39,7 @@ public class FilesController {
             model.addAttribute("isSuccess", true);
             model.addAttribute("successMsg", "Successfully deleted the files.");
         }catch(Exception e) {
+            System.out.println("Cause: " + e.getCause() + ". Message: " + e.getMessage());
             model.addAttribute("isError", true);
             model.addAttribute("errorMsg", "Credential couldn't be files.");
         }
@@ -77,6 +78,7 @@ public class FilesController {
             model.addAttribute("isSuccess", true);
             model.addAttribute("successMsg", "Successfully deleted the files.");
         }catch(Exception e) {
+            System.out.println("Cause: " + e.getCause() + ". Message: " + e.getMessage());
             model.addAttribute("isError", true);
             model.addAttribute("errorMsg", "Credential couldn't be files.");
         }

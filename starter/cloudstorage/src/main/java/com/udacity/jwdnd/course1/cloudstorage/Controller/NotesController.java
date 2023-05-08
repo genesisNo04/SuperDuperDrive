@@ -30,6 +30,7 @@ public class NotesController {
                 model.addAttribute("isSuccess", true);
                 model.addAttribute("successMsg", "Note has been successfully inserted.");
             } catch (Exception e) {
+                System.out.println("Cause: " + e.getCause() + ". Message: " + e.getMessage());
                 model.addAttribute("isError", true);
                 model.addAttribute("errorMsg", "Note could not be inserted.");
             }
@@ -40,6 +41,7 @@ public class NotesController {
                 model.addAttribute("isSuccess", true);
                 model.addAttribute("successMsg", "Note has been successfully updated.");
             } catch (Exception e) {
+                System.out.println("Cause: " + e.getCause() + ". Message: " + e.getMessage());
                 model.addAttribute("isError", true);
                 model.addAttribute("errorMsg", "Note could not be updated.");
             }
@@ -56,6 +58,7 @@ public class NotesController {
             model.addAttribute("isSuccess", true);
             model.addAttribute("successMsg", "Successfully deleted note");
         }catch(Exception e) {
+            System.out.println("Cause: " + e.getCause() + ". Message: " + e.getMessage());
             System.out.println("Cause: " + e.getCause() + ". Message: " + e.getMessage());
             model.addAttribute("isError", true);
             model.addAttribute("errorMsg", "Note couldn't be deleted");

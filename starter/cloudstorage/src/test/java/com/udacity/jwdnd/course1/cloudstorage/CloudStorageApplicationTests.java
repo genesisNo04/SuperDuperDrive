@@ -10,6 +10,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.cache.annotation.CacheEvict;
+
 import java.io.File;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -19,7 +21,6 @@ class CloudStorageApplicationTests {
 	private int port;
 
 	private WebDriver driver;
-	private WebDriverWait driverWait;
 
 	@BeforeAll
 	static void beforeAll() {
@@ -29,7 +30,6 @@ class CloudStorageApplicationTests {
 	@BeforeEach
 	public void beforeEach() {
 		this.driver = new ChromeDriver();
-		this.driverWait = new WebDriverWait (driver, 5000);
 	}
 
 	@AfterEach
@@ -42,7 +42,6 @@ class CloudStorageApplicationTests {
 	@Test
 	public void getLoginPage() throws InterruptedException {
 		driver.get("http://localhost:" + this.port + "/login");
-		System.out.println("http://localhost:" + this.port + "/login");
 		Assertions.assertEquals("Login", driver.getTitle());
 	}
 
@@ -55,7 +54,7 @@ class CloudStorageApplicationTests {
 
 		// Visit the sign-up page.
 		WebDriverWait webDriverWait = new WebDriverWait(driver, 2);
-		driver.get("http://localhost:" + this.port + "/signup");
+		driver.get("http://localhost:" + this.port + "/register");
 		webDriverWait.until(ExpectedConditions.titleContains("Sign Up"));
 		
 		// Fill out credentials
@@ -84,8 +83,8 @@ class CloudStorageApplicationTests {
 		WebElement buttonSignUp = driver.findElement(By.id("buttonSignUp"));
 		buttonSignUp.click();
 
-		/* Check that the sign up was successful. 
-		// You may have to modify the element "success-msg" and the sign-up 
+		/* Check that the sign up was successful.
+		// You may have to modify the element "success-msg" and the sign-up
 		// success message below depening on the rest of your code.
 		*/
 		Assertions.assertTrue(driver.findElement(By.id("success-msg")).getText().contains("You successfully signed up!"));
@@ -154,7 +153,7 @@ class CloudStorageApplicationTests {
 	 * https://attacomsian.com/blog/spring-boot-custom-error-page#displaying-custom-error-page
 	 */
 	@Test
-	public void testBadUrl() {
+	public void testBadUrl() throws InterruptedException {
 		// Create a test account
 		doMockSignUp("URL","Test","UT","123");
 		doLogIn("UT", "123");
@@ -201,7 +200,4 @@ class CloudStorageApplicationTests {
 		Assertions.assertFalse(driver.getPageSource().contains("HTTP Status 403 – Forbidden"));
 
 	}
-
-
-
 }

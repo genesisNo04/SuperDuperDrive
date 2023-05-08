@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class RegisterController {
@@ -23,7 +24,7 @@ public class RegisterController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute Users user, Model model) {
+    public String registerUser(@ModelAttribute Users user, Model model, RedirectAttributes redirectAttributes) {
         String registerError = null;
         if(!usersService.isUsernameAvailable(user.getUsername())) {
             registerError = "The username already exists.";
@@ -38,6 +39,8 @@ public class RegisterController {
 
         if(registerError == null) {
             model.addAttribute("signupSuccess", true);
+            redirectAttributes.addFlashAttribute("signupSuccess", true);
+            return "redirect:/login";
         } else {
             model.addAttribute("signupError", registerError);
         }

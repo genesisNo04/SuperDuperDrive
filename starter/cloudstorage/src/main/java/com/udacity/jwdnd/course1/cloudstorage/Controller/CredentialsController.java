@@ -43,6 +43,7 @@ public class CredentialsController {
                 model.addAttribute("isSuccess", true);
                 model.addAttribute("successMsg", "Credential has been successfully updated.");
             } catch (Exception e) {
+                System.out.println("Cause: " + e.getCause() + ". Message: " + e.getMessage());
                 model.addAttribute("isError", true);
                 model.addAttribute("errorMsg", "Credential has not been updated.");
             }
@@ -57,6 +58,7 @@ public class CredentialsController {
             model.addAttribute("isSuccess", true);
             model.addAttribute("successMsg", "Successfully deleted the credential.");
         }catch(Exception e) {
+            System.out.println("Cause: " + e.getCause() + ". Message: " + e.getMessage());
             model.addAttribute("isError", true);
             model.addAttribute("errorMsg", "Credential couldn't be deleted.");
         }
